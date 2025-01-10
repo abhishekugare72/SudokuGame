@@ -39,7 +39,6 @@ const SudokuCell = ({
   const cellRef = useRef(null);
 
   useEffect(() => {
-    // Create the entrance animation
     const entranceAnimation = gsap.from(cellRef.current, {
       duration: 0.5,
       opacity: 0,
@@ -47,21 +46,17 @@ const SudokuCell = ({
       delay: (rowIndex * 9 + colIndex) * 0.02,
       ease: "power2.out",
       onStart: () => {
-        // Ensure the cell is visible after animation
         gsap.set(cellRef.current, { opacity: 1 });
       },
     });
-
-    // Cleanup function
     return () => {
       if (entranceAnimation) entranceAnimation.kill();
     };
-  }, []); // Empty dependency array means this runs once on mount
+  }, []); 
 
   useEffect(() => {
     if (!cellRef.current) return;
 
-    // Create the selection animation
     const selectionAnimation = gsap.to(cellRef.current, {
       duration: 0.3,
       backgroundColor: isSelected
@@ -75,7 +70,6 @@ const SudokuCell = ({
       ease: "power2.out",
     });
 
-    // Cleanup function
     return () => {
       if (selectionAnimation) selectionAnimation.kill();
     };
@@ -83,14 +77,14 @@ const SudokuCell = ({
 
   useEffect(() => {
     if (value && !isInitialCell && cellRef.current) {
-      // Create the value change animation
+      
       const valueAnimation = gsap.from(cellRef.current, {
         duration: 0.3,
         scale: 1.2,
         ease: "back.out(1.7)",
       });
 
-      // Cleanup function
+      
       return () => {
         if (valueAnimation) valueAnimation.kill();
       };
